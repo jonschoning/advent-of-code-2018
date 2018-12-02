@@ -1,0 +1,59 @@
+name: AOC2018 
+version: '0.0.0.1'
+synopsis: Advent of Code 2018
+description: ! '
+  Avent of Code 2018
+'
+author: Jon Schoning
+maintainer: jonschoning@gmail.com
+copyright: Copyright (c) 2018 Jon Schoning
+license: MIT
+homepage: https://github.com/jonschoning/advent-of-code-2018
+git: git://github.com/jonschoning/advent-of-code-2018.git
+bug-reports: https://github.com/jonschoning/advent-of-code-2018/issues
+ghc-options: -Wall -O2
+dependencies:
+- base >=4.7
+- bytestring >=0.10.0
+- containers
+- mtl >=2.2.1
+- unliftio
+- text >=0.11
+- transformers >=0.4.0.0
+- unordered-containers
+- lens
+- either
+- attoparsec
+library:
+  source-dirs: src
+  ghc-options:
+  - -fno-warn-unused-binds 
+  - -fno-warn-unused-imports
+
+  exposed-modules:
+  - Day1
+  dependencies:
+  - time >=1.5
+  - vector >=0.10.9
+  - random >=1.1
+  - split
+executables:
+  AOC2018:
+    main: app/Main.hs
+    dependencies:
+    - AOC2018
+    - unix
+    - deepseq
+    - criterion
+tests:
+  spec:
+    main: Spec.hs
+    source-dirs: tests
+    ghc-options:
+    - -fno-warn-orphans
+    - -fno-warn-unused-binds 
+    - -fno-warn-unused-imports
+    dependencies:
+    - AOC2018
+    - hspec >=1.8
+    - HUnit > 1.5.0
