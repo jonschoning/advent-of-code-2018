@@ -28,4 +28,5 @@ main = do
     ("1" , "1") -> S . D1.p1
     ("1" , "2") -> S . D1.p2
     ("2" , "1") -> S . D2.p1
+    ("2" , "2") -> S . D2.p2
     _           -> error "invalid arguments"
