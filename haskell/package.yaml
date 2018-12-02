@@ -32,6 +32,7 @@ library:
 
   exposed-modules:
   - Day1
+  - Day2
   dependencies:
   - time >=1.5
   - vector >=0.10.9
