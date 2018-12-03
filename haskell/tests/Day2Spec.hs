@@ -26,8 +26,7 @@ spec = do
       it "sample" $ do
         let input = B8.unlines $ B8.words "abcde fghij klmno pqrst fguij axcye wvxyz"
         D2.p2 input `shouldBe` "fgij"
-
-      -- it "input: file[input/day2.txt]" $ do
-      --   input <- B8.readFile "input/day2.txt"
-      --   D2.p2 input `shouldBe` ""
+      it "input: file[input/day2.txt]" $ do
+        input <- B8.readFile "input/day2.txt"
+        D2.p2 input `shouldBe` "jbbenqtlaxhivmwyscjukztdp"
 

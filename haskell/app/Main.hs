@@ -1,32 +1,39 @@
 {-# LANGUAGE ExistentialQuantification #-}
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE BangPatterns #-}
 
 import System.Environment (getArgs)
-import Criterion (nf, benchmark)
+import Criterion (benchmark, nf, nfIO)
 import Control.DeepSeq (NFData, rnf)
 import qualified Data.ByteString.Char8 as B8
 import qualified Day1 as D1
 import qualified Day2 as D2
 
-data AnyShow = forall a. (NFData a, Show a) => S a 
-instance Show AnyShow where showsPrec p (S a) = showsPrec p a
-instance NFData AnyShow where rnf (S a) = rnf a
+data AnyShowNF = forall a. (NFData a, Show a) => S a 
+instance Show AnyShowNF where showsPrec p (S a) = showsPrec p a
+instance NFData AnyShowNF where rnf (S a) = rnf a
+
+data DP =
+  DP !String -- * Day
+     !String -- * Part
 
 main :: IO ()
 main = do
   (cmd:day:part:inputfile:_) <- getArgs
-  let dp = (day, part)
-  input <- B8.readFile inputfile
+  let goDP = go (DP day part)
+      readInput = B8.readFile inputfile
+      goIO = pure . goDP =<< readInput
   case cmd of
-    "b" -> benchmark (nf (go dp) input)
-    "p" -> print ((go dp) input)
+    "p" -> print =<< goIO
+    "b" -> benchmark . nf goDP =<< readInput
+    "bio" -> benchmark (nfIO goIO)
     _   -> error "invalid cmd"
  where
-  go :: (String, String) -> B8.ByteString -> AnyShow
+  go :: DP -> B8.ByteString -> AnyShowNF
   go = \case
-    ("1" , "1") -> S . D1.p1
-    ("1" , "2") -> S . D1.p2
-    ("2" , "1") -> S . D2.p1
-    ("2" , "2") -> S . D2.p2
+    DP "1" "1" -> S . D1.p1
+    DP "1" "2" -> S . D1.p2
+    DP "2" "1" -> S . D2.p1
+    DP "2" "2" -> S . D2.p2
     _           -> error "invalid arguments"
