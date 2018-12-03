@@ -1,11 +1,10 @@
-{-# LANGUAGE BangPatterns #-}
-
 module Day1 where
 
 import Data.List (foldl', scanl')
 import Data.Maybe (fromJust)
 import qualified Data.ByteString.Char8 as B8 (ByteString, lines, readInt)
 import qualified Data.IntSet as S (empty, insert, member)
+import Prelude
 
 -- | Part One
 p1 :: B8.ByteString -> Int

@@ -1,12 +1,10 @@
-{-# LANGUAGE TupleSections #-}
-{-# LANGUAGE BangPatterns #-}
-
 module Day2 where
 
 import qualified Data.ByteString.Char8 as B8
 import Data.List
 import Data.Monoid
 import Data.Maybe
+import Prelude
 
 -- * Part One
 

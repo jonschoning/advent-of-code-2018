@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: e0d9fb76020e3b96692eb2f872bf91d355eb543fdf2ac29cd48a369dad8aa431
+-- hash: bb8cc824f7fd884960cc9b3d4be8c2b33dec81db6b5ab427349aa9aab18f7d96
 
 name:           AOC2018
 version:        0.0.0.1
@@ -29,6 +29,7 @@ library
       Paths_AOC2018
   hs-source-dirs:
       src
+  default-extensions: BangPatterns CPP ConstraintKinds DeriveDataTypeable DeriveGeneric EmptyDataDecls ExistentialQuantification FlexibleContexts FlexibleInstances GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MultiParamTypeClasses MultiWayIf NoImplicitPrelude OverloadedStrings QuasiQuotes RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TemplateHaskell TupleSections TypeFamilies TypeOperators ViewPatterns
   ghc-options: -Wall -O2 -fno-warn-unused-binds -fno-warn-unused-imports
   build-depends:
       attoparsec
@@ -52,6 +53,7 @@ executable AOC2018
   main-is: app/Main.hs
   other-modules:
       Paths_AOC2018
+  default-extensions: BangPatterns CPP ConstraintKinds DeriveDataTypeable DeriveGeneric EmptyDataDecls ExistentialQuantification FlexibleContexts FlexibleInstances GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MultiParamTypeClasses MultiWayIf NoImplicitPrelude OverloadedStrings QuasiQuotes RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TemplateHaskell TupleSections TypeFamilies TypeOperators ViewPatterns
   ghc-options: -Wall -O2
   build-depends:
       AOC2018
@@ -64,6 +66,7 @@ executable AOC2018
     , either
     , lens
     , mtl >=2.2.1
+    , optparse-generic >=1.2.3
     , text >=0.11
     , transformers >=0.4.0.0
     , unix
@@ -80,6 +83,7 @@ test-suite spec
       Paths_AOC2018
   hs-source-dirs:
       tests
+  default-extensions: BangPatterns CPP ConstraintKinds DeriveDataTypeable DeriveGeneric EmptyDataDecls ExistentialQuantification FlexibleContexts FlexibleInstances GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MultiParamTypeClasses MultiWayIf NoImplicitPrelude OverloadedStrings QuasiQuotes RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TemplateHaskell TupleSections TypeFamilies TypeOperators ViewPatterns
   ghc-options: -Wall -O2 -fno-warn-orphans -fno-warn-unused-binds -fno-warn-unused-imports
   build-depends:
       AOC2018

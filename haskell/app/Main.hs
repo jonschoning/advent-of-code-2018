@@ -1,18 +1,16 @@
-{-# LANGUAGE ExistentialQuantification #-}
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE BangPatterns #-}
-
 import System.Environment (getArgs)
 import Criterion (benchmark, nf, nfIO)
 import Control.DeepSeq (NFData, rnf)
 import qualified Data.ByteString.Char8 as B8
 import qualified Day1 as D1
 import qualified Day2 as D2
+-- import Options.Generic
+import Prelude
 
 data AnyShowNF = forall a. (NFData a, Show a) => S a 
 instance Show AnyShowNF where showsPrec p (S a) = showsPrec p a
 instance NFData AnyShowNF where rnf (S a) = rnf a
+
 
 data DP =
   DP !String -- * Day
