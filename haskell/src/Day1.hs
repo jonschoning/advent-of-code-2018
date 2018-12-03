@@ -5,7 +5,7 @@ module Day1 where
 import Data.List (foldl', scanl')
 import Data.Maybe (fromJust)
 import qualified Data.ByteString.Char8 as B8 (ByteString, lines, readInt)
-import qualified Data.Set as S (empty, insert, member)
+import qualified Data.IntSet as S (empty, insert, member)
 
 -- | Part One
 p1 :: B8.ByteString -> Int
