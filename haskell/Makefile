@@ -9,7 +9,10 @@ stack = stack
 
 ghcflags = --ghc-options -O2
 targs = --test-arguments=--match
-rtsopts = +RTS -s
+rtsopts = 
+ifeq (p, $(m))
+  rtsopts = +RTS -s
+endif
 
 doctest = doctest --fast -XOverloadedStrings
 
