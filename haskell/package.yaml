@@ -74,7 +74,7 @@ executables:
     - unix
     - deepseq
     - criterion
-    - optparse-generic >= 1.2.3
+    - optparse-applicative
 tests:
   spec:
     main: Spec.hs

@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: bb8cc824f7fd884960cc9b3d4be8c2b33dec81db6b5ab427349aa9aab18f7d96
+-- hash: 843110784040725ffa3c0ac8a65d0d3fe43270a07e1430c750fa2d6db1f88f00
 
 name:           AOC2018
 version:        0.0.0.1
@@ -66,7 +66,7 @@ executable AOC2018
     , either
     , lens
     , mtl >=2.2.1
-    , optparse-generic >=1.2.3
+    , optparse-applicative
     , text >=0.11
     , transformers >=0.4.0.0
     , unix

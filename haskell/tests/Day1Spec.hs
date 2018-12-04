@@ -1,11 +1,11 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 module Day1Spec where
 
 import Test.Hspec
 import qualified Data.ByteString.Char8 as B8
 
 import qualified Day1 as D1
+
+import Prelude
 
 main :: IO ()
 main = hspec spec
