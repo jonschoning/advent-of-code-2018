@@ -1,3 +1,5 @@
+{-# LANGUAGE StrictData #-}
+
 import Control.DeepSeq (NFData, rnf)
 import Criterion (benchmark, nf, nfIO)
 import Options.Applicative ( Parser, argument, auto, customExecParser, fullDesc, str
@@ -11,10 +13,10 @@ import qualified Day3 as D3
 import Prelude
 
 data Args =
-  Args !String -- * Mode
-       !Int -- * Day
-       !Int -- * Part
-       !String -- * Inputfile
+  Args String -- * Mode
+       Int -- * Day
+       Int -- * Part
+       String -- * Inputfile
   deriving (Show)
 
 main :: IO ()

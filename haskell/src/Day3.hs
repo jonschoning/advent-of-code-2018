@@ -19,8 +19,8 @@ data Claim =
   deriving (Show)
 
 data Coord =
-  Coord Int
-        Int
+  Coord Int -- * x
+        Int -- * y
   deriving (Ord, Eq, Show)
 
 -- * Part One
@@ -37,8 +37,8 @@ overlapCount = foldl' go M.empty
 
 toCoords :: Claim -> [Coord]
 toCoords (Claim _ l t w h) =
-  let xs = take w (iterate succ l)
-      ys = take h (iterate succ t)
+  let xs = [l .. l + w - 1]
+      ys = [t .. t + h - 1]
   in [Coord x y | x <- xs, y <- ys]
 
 -- * Part Two
@@ -52,18 +52,22 @@ p2 (parseInput -> claims) =
 overlapId :: [Claim] -> M.Map Coord ClaimId
 overlapId = foldl' go M.empty
   where
-    go m c@(Claim _id _ _ _ _) =
-      foldl' (\m' k -> M.insertWith (\_ _ -> "X") k _id m') m (toCoords c)
+    go m c =
+      foldl' (\m' k -> M.insertWith (\_ _ -> "X") k (toId c) m') m (toCoords c)
 
 findNonOverlappingClaim :: M.Map Coord ClaimId -> [Claim] -> Maybe ClaimId
 findNonOverlappingClaim m = listToMaybe . mapMaybe go
   where
-    go c@(Claim _id _ _ _ _) =
-      if all (== Just _id) $ fmap (\k -> M.lookup k m) (toCoords c)
-        then Just _id
-        else Nothing
+    go c =
+      let _id = toId c
+      in if all (== Just _id) $ fmap (\k -> M.lookup k m) (toCoords c)
+           then Just _id
+           else Nothing
 
 -- * Util
+
+toId :: Claim -> ClaimId
+toId (Claim _id _ _ _ _) = _id
 
 parseInput :: B8.ByteString -> [Claim]
 parseInput input = do
