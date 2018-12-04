@@ -14,6 +14,17 @@ spec :: Spec
 spec = do
 
     describe "Part1" $ do
+      it "sample" $ do
+        let input = "#1 @ 1,3: 4x4\n#2 @ 3,1: 4x4\n#3 @ 5,5: 2x2"
+        D3.p1 input `shouldBe` 4
       it "input: file[input/day3.txt]" $ do
         input <- B8.readFile "input/day3.txt"
-        D3.p1 input `shouldBe` 0
+        D3.p1 input `shouldBe` 112378
+
+    describe "Part2" $ do
+      it "sample" $ do
+        let input = "#1 @ 1,3: 4x4\n#2 @ 3,1: 4x4\n#3 @ 5,5: 2x2"
+        D3.p2 input `shouldBe` "3"
+      -- it "input: file[input/day3.txt]" $ do
+      --   input <- B8.readFile "input/day3.txt"
+      --   D3.p2 input `shouldBe` "0"

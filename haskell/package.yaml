@@ -38,6 +38,7 @@ default-extensions:
 - GeneralizedNewtypeDeriving
 - InstanceSigs
 - LambdaCase
+- MagicHash
 - MultiParamTypeClasses
 - MultiWayIf
 - NoImplicitPrelude
