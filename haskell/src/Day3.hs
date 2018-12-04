@@ -1,5 +1,4 @@
 {-# LANGUAGE StrictData #-}
-{-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 module Day3 where
 
@@ -9,10 +8,11 @@ import Data.List
 import Data.Monoid
 import Data.Maybe
 import Prelude
-import Debug.Trace
+
+type ClaimId = B8.ByteString
 
 data Claim =
-  Claim B8.ByteString -- * id
+  Claim ClaimId -- * id
         Int -- * left
         Int -- * top
         Int -- * width
@@ -22,7 +22,7 @@ data Claim =
 data Pr =
   Pr Int
      Int
-  deriving (Ord, Eq)
+  deriving (Ord, Eq, Show)
 
 -- * Part One
 
@@ -35,7 +35,7 @@ p1 (parseInput -> claims) =
 overlapCount :: [Claim] -> M.Map Pr Int
 overlapCount = foldl' go M.empty
   where
-    go m claim = foldl' (\m' k -> M.insertWith (+) k 1 m') m (toCoords claim)
+    go m c = foldl' (\m' k -> M.insertWith (+) k 1 m') m (toCoords c)
 
 toCoords :: Claim -> [Pr]
 toCoords (Claim _ l t w h) =
@@ -48,8 +48,24 @@ toCoords (Claim _ l t w h) =
 -- | p2
 -- What is the ID of the only claim that doesn't overlap?
 p2 :: B8.ByteString -> B8.ByteString
-p2 (parseInput -> claims) = "0"
-  
+p2 (parseInput -> claims) =
+  findNonOverlappingClaim (overlapId claims) claims 
+
+overlapId :: [Claim] -> M.Map Pr ClaimId
+overlapId = foldl' go M.empty
+  where
+    go m c@(Claim _id _ _ _ _) =
+      foldl' (\m' k -> M.insertWith (\_ _ -> "X") k _id m') m (toCoords c)
+
+findNonOverlappingClaim :: M.Map Pr ClaimId -> [Claim] -> ClaimId
+findNonOverlappingClaim m = fromJust . getFirst . foldMap go
+  where
+    go c@(Claim _id _ _ _ _) =
+      First $
+      if all (== Just _id) $ fmap (\k -> M.lookup k m) (toCoords c)
+        then Just _id
+        else Nothing
+
 -- * Util
 
 parseInput :: B8.ByteString -> [Claim]
