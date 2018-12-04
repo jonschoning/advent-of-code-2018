@@ -5,7 +5,6 @@ module Day3 where
 import qualified Data.ByteString.Char8 as B8
 import qualified Data.Map.Strict as M
 import Data.List
-import Data.Monoid
 import Data.Maybe
 import Prelude
 
@@ -19,9 +18,9 @@ data Claim =
         Int -- * height
   deriving (Show)
 
-data Pr =
-  Pr Int
-     Int
+data Coord =
+  Coord Int
+        Int
   deriving (Ord, Eq, Show)
 
 -- * Part One
@@ -29,19 +28,18 @@ data Pr =
 -- | p1
 -- How many square inches of fabric are within two or more claims?
 p1 :: B8.ByteString -> Int
-p1 (parseInput -> claims) =
-  M.foldl' (\acc v -> if v > 1 then succ acc else acc) 0 (overlapCount claims)
+p1 = length . filter (> 1) . M.elems . overlapCount . parseInput
 
-overlapCount :: [Claim] -> M.Map Pr Int
+overlapCount :: [Claim] -> M.Map Coord Int
 overlapCount = foldl' go M.empty
   where
     go m c = foldl' (\m' k -> M.insertWith (+) k 1 m') m (toCoords c)
 
-toCoords :: Claim -> [Pr]
+toCoords :: Claim -> [Coord]
 toCoords (Claim _ l t w h) =
   let xs = take w (iterate succ l)
       ys = take h (iterate succ t)
-  in [Pr x y | x <- xs, y <- ys]
+  in [Coord x y | x <- xs, y <- ys]
 
 -- * Part Two
 
@@ -49,19 +47,18 @@ toCoords (Claim _ l t w h) =
 -- What is the ID of the only claim that doesn't overlap?
 p2 :: B8.ByteString -> B8.ByteString
 p2 (parseInput -> claims) =
-  findNonOverlappingClaim (overlapId claims) claims 
+  fromJust $ findNonOverlappingClaim (overlapId claims) claims 
 
-overlapId :: [Claim] -> M.Map Pr ClaimId
+overlapId :: [Claim] -> M.Map Coord ClaimId
 overlapId = foldl' go M.empty
   where
     go m c@(Claim _id _ _ _ _) =
       foldl' (\m' k -> M.insertWith (\_ _ -> "X") k _id m') m (toCoords c)
 
-findNonOverlappingClaim :: M.Map Pr ClaimId -> [Claim] -> ClaimId
-findNonOverlappingClaim m = fromJust . getFirst . foldMap go
+findNonOverlappingClaim :: M.Map Coord ClaimId -> [Claim] -> Maybe ClaimId
+findNonOverlappingClaim m = listToMaybe . mapMaybe go
   where
     go c@(Claim _id _ _ _ _) =
-      First $
       if all (== Just _id) $ fmap (\k -> M.lookup k m) (toCoords c)
         then Just _id
         else Nothing
