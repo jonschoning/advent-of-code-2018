@@ -10,6 +10,7 @@ import qualified Day1 as D1
 import qualified Day2 as D2
 import qualified Day3 as D3
 import qualified Day4 as D4
+import qualified Day5 as D5
 
 import Prelude
 
@@ -43,6 +44,8 @@ main = do
       Args _ 3 2 _ -> S . D3.p2
       Args _ 4 1 _ -> S . D4.p1
       Args _ 4 2 _ -> S . D4.p2
+      Args _ 5 1 _ -> S . D5.p1
+      Args _ 5 2 _ -> S . D5.p2
       _ -> error "invalid day or part"
 
   parseArgs =

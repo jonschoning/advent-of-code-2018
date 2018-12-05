@@ -61,3 +61,24 @@ mean                 384.2 ms   (371.0 ms .. 403.6 ms)
 std dev              18.38 ms   (1.883 ms .. 23.38 ms)
 variance introduced by outliers: 19% (moderately inflated)
 ```
+
+### Day 4
+
+```
+$ make day4p1 m=b; make day4p2 m=b 
+.stack-work/install/x86_64-linux-tinfo6/lts-12.18/8.4.4/bin/AOC2018 b 4 1 input/day4.txt 
+benchmarking...
+time                 2.419 ms   (2.403 ms .. 2.441 ms)
+                     1.000 R²   (0.999 R² .. 1.000 R²)
+mean                 2.409 ms   (2.405 ms .. 2.416 ms)
+std dev              17.94 μs   (11.69 μs .. 29.31 μs)
+
+.stack-work/install/x86_64-linux-tinfo6/lts-12.18/8.4.4/bin/AOC2018 b 4 2 input/day4.txt 
+benchmarking...
+time                 2.432 ms   (2.418 ms .. 2.454 ms)
+                     0.999 R²   (0.998 R² .. 1.000 R²)
+mean                 2.446 ms   (2.432 ms .. 2.474 ms)
+std dev              65.98 μs   (47.44 μs .. 94.93 μs)
+variance introduced by outliers: 14% (moderately inflated)
+
+```
