@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 7e8e78467718ff2fc2f2df0f3b28c52f7461faa0a2967f4784b6805e3b48ae1f
+-- hash: 362cfca1f87a9a18f6698a8a1cccd408ccf049ec6a003d2e0bfc6ab35209ba5b
 
 name:           AOC2018
 version:        0.0.0.1
@@ -31,7 +31,7 @@ library
       Paths_AOC2018
   hs-source-dirs:
       src
-  default-extensions: BangPatterns CPP ConstraintKinds DeriveDataTypeable DeriveGeneric EmptyDataDecls ExistentialQuantification FlexibleContexts FlexibleInstances GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MagicHash MultiParamTypeClasses MultiWayIf NoImplicitPrelude OverloadedStrings QuasiQuotes RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TemplateHaskell TupleSections TypeFamilies TypeOperators ViewPatterns
+  default-extensions: BangPatterns CPP ConstraintKinds DeriveDataTypeable DeriveGeneric EmptyDataDecls ExistentialQuantification FlexibleContexts FlexibleInstances GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MagicHash MultiParamTypeClasses MultiWayIf NoImplicitPrelude OverloadedStrings PartialTypeSignatures QuasiQuotes RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TemplateHaskell TupleSections TypeFamilies TypeOperators ViewPatterns
   ghc-options: -Wall -O2 -fno-warn-unused-binds -fno-warn-unused-imports
   build-depends:
       attoparsec
@@ -55,7 +55,7 @@ executable AOC2018
   main-is: app/Main.hs
   other-modules:
       Paths_AOC2018
-  default-extensions: BangPatterns CPP ConstraintKinds DeriveDataTypeable DeriveGeneric EmptyDataDecls ExistentialQuantification FlexibleContexts FlexibleInstances GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MagicHash MultiParamTypeClasses MultiWayIf NoImplicitPrelude OverloadedStrings QuasiQuotes RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TemplateHaskell TupleSections TypeFamilies TypeOperators ViewPatterns
+  default-extensions: BangPatterns CPP ConstraintKinds DeriveDataTypeable DeriveGeneric EmptyDataDecls ExistentialQuantification FlexibleContexts FlexibleInstances GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MagicHash MultiParamTypeClasses MultiWayIf NoImplicitPrelude OverloadedStrings PartialTypeSignatures QuasiQuotes RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TemplateHaskell TupleSections TypeFamilies TypeOperators ViewPatterns
   ghc-options: -Wall -O2
   build-depends:
       AOC2018
@@ -87,7 +87,7 @@ test-suite spec
       Paths_AOC2018
   hs-source-dirs:
       tests
-  default-extensions: BangPatterns CPP ConstraintKinds DeriveDataTypeable DeriveGeneric EmptyDataDecls ExistentialQuantification FlexibleContexts FlexibleInstances GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MagicHash MultiParamTypeClasses MultiWayIf NoImplicitPrelude OverloadedStrings QuasiQuotes RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TemplateHaskell TupleSections TypeFamilies TypeOperators ViewPatterns
+  default-extensions: BangPatterns CPP ConstraintKinds DeriveDataTypeable DeriveGeneric EmptyDataDecls ExistentialQuantification FlexibleContexts FlexibleInstances GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MagicHash MultiParamTypeClasses MultiWayIf NoImplicitPrelude OverloadedStrings PartialTypeSignatures QuasiQuotes RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TemplateHaskell TupleSections TypeFamilies TypeOperators ViewPatterns
   ghc-options: -Wall -O2 -fno-warn-orphans -fno-warn-unused-binds -fno-warn-unused-imports
   build-depends:
       AOC2018

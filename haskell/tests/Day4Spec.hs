@@ -17,14 +17,17 @@ spec = do
       it "sample" $ do
         let input = sampleInput
         D4.p1 input `shouldBe` 240
-      -- it "input: file[input/day4.txt]" $ do
-      --   input <- B8.readFile "input/day4.txt"
-      --   D4.p1 input `shouldBe` 0
+      it "input: file[input/day4.txt]" $ do
+        input <- B8.readFile "input/day4.txt"
+        D4.p1 input `shouldBe` 104764
 
-    -- describe "Part2" $ do
-    --   it "input: file[input/day4.txt]" $ do
-    --     input <- B8.readFile "input/day4.txt"
-    --     D4.p2 input `shouldBe` 0
+    describe "Part2" $ do
+      it "sample" $ do
+        let input = sampleInput
+        D4.p2 input `shouldBe` 4455
+      it "input: file[input/day4.txt]" $ do
+        input <- B8.readFile "input/day4.txt"
+        D4.p2 input `shouldBe` 128617
 
 sampleInput :: B8.ByteString
 sampleInput = B8.unlines $

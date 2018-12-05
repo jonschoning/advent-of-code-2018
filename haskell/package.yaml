@@ -43,6 +43,7 @@ default-extensions:
 - MultiWayIf
 - NoImplicitPrelude
 - OverloadedStrings
+- PartialTypeSignatures
 - QuasiQuotes
 - RankNTypes
 - RecordWildCards
