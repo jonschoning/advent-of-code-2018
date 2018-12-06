@@ -78,3 +78,13 @@ day5p1: $(aoc)
 	$(aoc_m) 5 1 input/day5.txt $(rtsopts)
 day5p2: $(aoc)
 	$(aoc_m) 5 2 input/day5.txt $(rtsopts)
+
+
+day6test:
+	$(stack) test $(targs)=Day6
+day6test-doc:
+	$(stack) exec -- $(doctest) src/Day6.hs
+day6p1: $(aoc)
+	$(aoc_m) 6 1 input/day6.txt $(rtsopts)
+day6p2: $(aoc)
+	$(aoc_m) 6 2 input/day6.txt $(rtsopts)

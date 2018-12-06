@@ -66,6 +66,7 @@ library:
   - Day3
   - Day4
   - Day5
+  - Day6
   dependencies:
   - time >=1.5
   - vector >=0.10.9
