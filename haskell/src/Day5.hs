@@ -18,10 +18,10 @@ p1 (readInput -> polymer) =
   length (react polymer)
 
 react :: String -> String
-react = reverse . foldl' go []
+react = foldr go []
   where
-    go [] c = [c]
-    go xxs@(x:xs) c =
+    go c [] = [c]
+    go c xxs@(x:xs) =
       if x /= c && toLower x == toLower c
         then xs
         else c : xxs
