@@ -10,36 +10,36 @@ import qualified Data.Vector as V
 import qualified Data.Set as S
 import Data.Vector (Vector)
 
-import Control.Monad.State
 import Data.List
-import Data.Maybe
-import Data.Ord
-import Control.Arrow
+import Data.Ord (comparing)
+import Control.Arrow ((&&&))
 
 import Prelude
 
-type Coords = Vector Coord
+type CoordId = Int -- the element index of Coords
 type Coord = (Int, Int)
 type Loc = (Int, Int)
 type Board = M.Map Loc Int
 data Params = Params
   { minX :: Int , maxX :: Int
   , minY :: Int , maxY :: Int
-  , coords :: Coords
+  , coords :: Vector Coord
   } deriving (Show)
 
 -- * Part One
 
 -- | p1
+-- .. maybe you can minimize the danger by finding the coordinate that gives the largest distance from the other points
+-- What is the size of the largest area that isn't infinite?
 p1 :: ByteString -> Int
 p1 (readInput -> input) =
   let params = toParams input
-      board = toBoard params
-      (_, freq) = findLargest params board
-  in freq
+      board = toBoard params (closest (coords params)) 
+      (_, area) = findLargestAreaByCoordId params board
+  in area
 
-findLargest :: Params -> Board -> (Int, Int)
-findLargest p@(Params {..}) b =
+findLargestAreaByCoordId :: Params -> Board -> (CoordId, Int)
+findLargestAreaByCoordId p@(Params {..}) b =
   maximumBy (comparing snd) . M.assocs . toFreq . filter (not . isInf) $
   M.elems b
   where
@@ -61,14 +61,14 @@ toParams cs =
       coords = V.fromList cs
   in Params {..}
 
-toBoard :: Params -> Board
-toBoard Params {..} =
+toBoard :: Params -> (Loc -> Maybe Int)  -> Board
+toBoard Params {..} f =
   let locs = [(x, y) | x <- [minX .. maxX], y <- [minY .. maxY]]
   in foldl' go M.empty locs
   where
-    go b loc = maybe b (\c_ix -> M.insert loc c_ix b) (closest coords loc)
+    go b loc = maybe b (\c_ix -> M.insert loc c_ix b) (f loc)
 
-closest :: Coords -> Loc -> Maybe Int
+closest :: Vector Coord -> Loc -> Maybe CoordId
 closest coords loc = 
   fst (V.ifoldl' go (Nothing, maxBound) coords)
   where
@@ -76,7 +76,7 @@ closest coords loc =
       case dist loc c of
         d | d < d' -> (Just ix, d)
         d | d > d' -> (mix', d')
-        d | d == d' -> (Nothing, d)
+        d | d == d' -> (Nothing, d) -- discard ties
         _ -> error "N/A"
 
 -- * Part Two
@@ -85,9 +85,18 @@ closest coords loc =
 -- What is the size of the region containing all locations which have
 -- a total distance to all given coordinates of less than 10000?
 p2 :: ByteString -> Int
-p2 input =
-  let x = 0
-  in 0
+p2 = p2' 10000 
+
+p2' :: Int -> ByteString -> Int
+p2' distLimit (readInput -> input) =
+  let params = toParams input
+      board = toBoard params (\loc ->
+                if isLocInRegion loc (coords params) 
+                   then Just 1
+                   else Nothing)
+  in M.size board
+  where
+    isLocInRegion loc = (distLimit >) . sum . fmap (dist loc)
 
 -- * Util
 

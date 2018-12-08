@@ -21,10 +21,13 @@ spec = do
         input <- B8.readFile "input/day6.txt"
         D6.p1 input `shouldBe` 4171
 
-    -- describe "Part2" $ do
-    --   it "input: file[input/day6.txt]" $ do
-    --     input <- B8.readFile "input/day6.txt"
-    --     D6.p2 input `shouldBe` 0
+    describe "Part2" $ do
+      it "sample" $ do
+        let input = sampleInput
+        D6.p2' 32 input `shouldBe` 16 
+      it "input: file[input/day6.txt]" $ do
+        input <- B8.readFile "input/day6.txt"
+        D6.p2 input `shouldBe` 39545
 
 sampleInput :: B8.ByteString
 sampleInput = B8.unlines $
