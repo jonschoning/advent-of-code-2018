@@ -40,17 +40,13 @@ p1 (readInput -> input) =
 
 findLargest :: Params -> Board -> (Int, Int)
 findLargest p@(Params {..}) b =
-  (maximumBy cmp . M.toList . toFreq . M.elems) b
+  maximumBy (comparing snd) . M.assocs . toFreq . filter (not . isInf) $
+  M.elems b
   where
-    cmp (c_ix, freq) (c_ix', freq') =
-      case (isInf c_ix, isInf c_ix') of
-        (False, False) -> compare freq freq'
-        (False, True) -> GT
-        (True, False) -> LT
-        (True, True) -> EQ
     isInf c_ix = S.member c_ix inf_ixs
     inf_ixs = foldl' go S.empty (toBorder p)
-      where go s l = maybe s (\c_ix -> S.insert c_ix s) (M.lookup l b)
+      where
+        go s l = maybe s (\c_ix -> S.insert c_ix s) (M.lookup l b)
 
 toBorder :: Params -> S.Set Coord
 toBorder (Params {..}) = 
@@ -70,10 +66,7 @@ toBoard Params {..} =
   let locs = [(x, y) | x <- [minX .. maxX], y <- [minY .. maxY]]
   in foldl' go M.empty locs
   where
-    go b loc =
-      case closest coords loc of
-        Just c_ix -> M.insert loc c_ix b
-        Nothing -> b
+    go b loc = maybe b (\c_ix -> M.insert loc c_ix b) (closest coords loc)
 
 closest :: Coords -> Loc -> Maybe Int
 closest coords loc = 
