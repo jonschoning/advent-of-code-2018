@@ -100,7 +100,7 @@ day6p2: $(aoc)
 # 	$(aoc_m) 7 2 input/day7.txt $(rtsopts)
 
 day8test:
-	$(stack) test $(targs)=Day8
+	$(stack) test $(targs)=Day8 --fast
 day8test-doc:
 	$(stack) exec -- $(doctest) src/Day8.hs
 day8p1: $(aoc)

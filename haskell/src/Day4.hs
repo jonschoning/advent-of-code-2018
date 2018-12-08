@@ -68,16 +68,16 @@ asleepFreq = evalState' (0, 0) . foldM go M.empty
 parseEvents :: ByteString -> [Event]
 parseEvents = rights . fmap parseLine . sort . B8.lines
   where
-    parseInt = P.decimal :: P.Parser Int
+    int = P.decimal :: P.Parser Int
     parseLine line =
       (flip parseOnly) line $ do
         char '['
-        s_minute <- P.takeWhile (/= ':') *> char ':' *> parseInt
+        s_minute <- P.takeWhile (/= ':') *> char ':' *> int
         char ']'
         space
         event <-
           choice
-            [ string "Guard #" *> fmap Guard parseInt
+            [ string "Guard #" *> fmap Guard int
             , char 'f' *> pure (S s_minute) 
             , char 'w' *> pure (W s_minute) 
             ]
