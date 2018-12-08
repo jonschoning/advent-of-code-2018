@@ -88,3 +88,22 @@ day6p1: $(aoc)
 	$(aoc_m) 6 1 input/day6.txt $(rtsopts)
 day6p2: $(aoc)
 	$(aoc_m) 6 2 input/day6.txt $(rtsopts)
+
+
+# day7test:
+# 	$(stack) test $(targs)=Day7
+# day7test-doc:
+# 	$(stack) exec -- $(doctest) src/Day7.hs
+# day7p1: $(aoc)
+# 	$(aoc_m) 7 1 input/day7.txt $(rtsopts)
+# day7p2: $(aoc)
+# 	$(aoc_m) 7 2 input/day7.txt $(rtsopts)
+
+day8test:
+	$(stack) test $(targs)=Day8
+day8test-doc:
+	$(stack) exec -- $(doctest) src/Day8.hs
+day8p1: $(aoc)
+	$(aoc_m) 8 1 input/day8.txt $(rtsopts)
+day8p2: $(aoc)
+	$(aoc_m) 8 2 input/day8.txt $(rtsopts)
