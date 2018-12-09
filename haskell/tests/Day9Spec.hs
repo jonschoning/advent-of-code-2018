@@ -16,17 +16,15 @@ spec = do
 
     describe "Part1" $ do
       it "sample" $ do
-        D9.p1 sampleInput `shouldBe` 0
-      -- it "input: file[input/day9.txt]" $ do
-      --   input <- B9.readFile "input/day9.txt"
-      --   D9.p1 input `shouldBe` 0
+        D9.p1 sampleInput `shouldBe` 32  -- player 5
+      it "input: file[input/day9.txt]" $ do
+        input <- B8.readFile "input/day9.txt"
+        D9.p1 input `shouldBe` 385820
 
-    -- describe "Part2" $ do
-    --   it "sample" $ do
-    --     D9.p2 sampleInput `shouldBe` 0
-    --   it "input: file[input/day9.txt]" $ do
-    --     input <- B9.readFile "input/day9.txt"
-    --     D9.p2 input `shouldBe` 0
+    describe "Part2" $ do
+      it "input: file[input/day9.txt]" $ do
+        input <- B8.readFile "input/day9.txt"
+        D9.p2 input `shouldBe` 3156297594
 
 sampleInput :: B8.ByteString
-sampleInput = ""
+sampleInput = "9 players; last marble is worth 25 points\n" 

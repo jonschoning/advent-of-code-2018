@@ -141,3 +141,24 @@ time                 1.970 ms   (1.950 ms .. 1.990 ms)
 mean                 1.968 ms   (1.961 ms .. 1.977 ms)
 std dev              26.91 μs   (18.41 μs .. 44.07 μs)
 ```
+
+### Day 9
+
+```
+make day9p1 m=b; make day9p2 m=b                                                                     ✘
+.stack-work/install/x86_64-linux-tinfo6/lts-12.18/8.4.4/bin/AOC2018 b 9 1 input/day9.txt 
+benchmarking...
+time                 9.826 ms   (9.764 ms .. 9.893 ms)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 9.859 ms   (9.825 ms .. 9.900 ms)
+std dev              100.7 μs   (83.73 μs .. 123.0 μs)
+
+.stack-work/install/x86_64-linux-tinfo6/lts-12.18/8.4.4/bin/AOC2018 b 9 2 input/day9.txt 
+benchmarking...
+time                 1.953 s    (NaN s .. 2.006 s)
+                     1.000 R²   (0.999 R² .. 1.000 R²)
+mean                 1.990 s    (1.964 s .. 2.033 s)
+std dev              42.12 ms   (1.088 ms .. 53.57 ms)
+variance introduced by outliers: 19% (moderately inflated)
+
+```
