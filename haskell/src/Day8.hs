@@ -1,16 +1,14 @@
 {-# LANGUAGE StrictData #-}
-{-# OPTIONS_GHC -fno-warn-unused-do-bind #-}
 
 module Day8 where
 
 import qualified Data.ByteString.Char8 as B8
 
-import Data.Attoparsec.ByteString.Char8 as P
+import Data.Attoparsec.ByteString.Char8 as P (parseOnly, count, decimal, space)
 import Data.ByteString (ByteString)
+import Control.Monad (void)
 
-import Data.List
-import Data.Either
-import Data.Function
+import Data.Either (fromRight)
 
 import Prelude
 
@@ -19,15 +17,16 @@ import Prelude
 -- | p1
 -- What is the sum of all metadata entries?
 p1 :: ByteString -> Int
-p1 (parseLiscence -> license) =
-  let sumMeta (N _ _ cs ms) = sum (fmap sumMeta cs) + sum ms
-  in sumMeta license
+p1 = sumMeta . parseLiscence
+  where
+    sumMeta (N _ _ cs ms) = sum (fmap sumMeta cs) + sum ms
 
 -- * Part Two
 
 -- | p2
+-- What is the value of the root node?
 p2 :: ByteString -> Int
-p2 (parseLiscence -> license) = sumNode license
+p2 = sumNode . parseLiscence
   where
     sumNode (N 0 _ _ ms) = sum ms
     sumNode (N _ _ cs ms) =
@@ -44,11 +43,12 @@ data Node =
   deriving (Show)
 
 parseLiscence :: ByteString -> Node
-parseLiscence = fromRight (error "e") . parseOnly parseNode . head . B8.lines
+parseLiscence =
+  fromRight (error "parseLiscence") . parseOnly parseNode . head . B8.lines
   where
     parseNode = do
       numChild <- decimal
-      space
+      void space
       numMeta <- decimal
       children <- count numChild (space *> parseNode)
       meta <- count numMeta (space *> decimal)

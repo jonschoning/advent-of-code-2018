@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: b1f2584cab36e30ad02166187a562af79ca27771456756c1d8652dbe8b5dfa8b
+-- hash: ff56d349039cc927d21bc45ad8d424e3dde9e96be135b5564d1f888c171e01b3
 
 name:           AOC2018
 version:        0.0.0.1
@@ -30,6 +30,7 @@ library
       Day5
       Day6
       Day8
+      Day9
   other-modules:
       Paths_AOC2018
   hs-source-dirs:
@@ -90,6 +91,7 @@ test-suite spec
       Day5Spec
       Day6Spec
       Day8Spec
+      Day9Spec
       Paths_AOC2018
   hs-source-dirs:
       tests
