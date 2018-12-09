@@ -82,3 +82,62 @@ std dev              65.98 μs   (47.44 μs .. 94.93 μs)
 variance introduced by outliers: 14% (moderately inflated)
 
 ```
+
+### Day 5
+
+```
+$ make day5p1 m=b; make day5p2 m=b  
+.stack-work/install/x86_64-linux-tinfo6/lts-12.18/8.4.4/bin/AOC2018 b 5 1 input/day5.txt 
+benchmarking...
+time                 3.140 ms   (3.131 ms .. 3.151 ms)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 3.129 ms   (3.122 ms .. 3.137 ms)
+std dev              22.96 μs   (18.07 μs .. 29.49 μs)
+
+.stack-work/install/x86_64-linux-tinfo6/lts-12.18/8.4.4/bin/AOC2018 b 5 2 input/day5.txt 
+benchmarking...
+time                 93.83 ms   (93.60 ms .. 94.02 ms)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 94.09 ms   (93.97 ms .. 94.24 ms)
+std dev              223.6 μs   (170.7 μs .. 311.1 μs)
+```
+
+### Day 6
+
+
+```
+make day6p1 m=b; make day6p2 m=b                                                                                    ✘
+.stack-work/install/x86_64-linux-tinfo6/lts-12.18/8.4.4/bin/AOC2018 b 6 1 input/day6.txt 
+benchmarking...
+ktime                 116.9 ms   (113.5 ms .. 121.3 ms)
+                     0.999 R²   (0.997 R² .. 1.000 R²)
+mean                 118.2 ms   (116.2 ms .. 121.1 ms)
+std dev              3.688 ms   (2.019 ms .. 6.358 ms)
+variance introduced by outliers: 11% (moderately inflated)
+
+.stack-work/install/x86_64-linux-tinfo6/lts-12.18/8.4.4/bin/AOC2018 b 6 2 input/day6.txt 
+benchmarking...
+time                 53.45 ms   (53.08 ms .. 54.09 ms)
+                     1.000 R²   (0.999 R² .. 1.000 R²)
+mean                 53.67 ms   (53.37 ms .. 54.29 ms)
+std dev              798.8 μs   (463.0 μs .. 1.279 ms)
+```
+
+### Day 8
+
+```
+make day8p1 m=b; make day8p2 m=b                                                                                    ✘
+.stack-work/install/x86_64-linux-tinfo6/lts-12.18/8.4.4/bin/AOC2018 b 8 1 input/day8.txt 
+benchmarking...
+time                 2.332 ms   (2.320 ms .. 2.344 ms)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 2.343 ms   (2.338 ms .. 2.350 ms)
+std dev              18.32 μs   (14.44 μs .. 22.53 μs)
+
+.stack-work/install/x86_64-linux-tinfo6/lts-12.18/8.4.4/bin/AOC2018 b 8 2 input/day8.txt 
+benchmarking...
+time                 1.970 ms   (1.950 ms .. 1.990 ms)
+                     1.000 R²   (0.999 R² .. 1.000 R²)
+mean                 1.968 ms   (1.961 ms .. 1.977 ms)
+std dev              26.91 μs   (18.41 μs .. 44.07 μs)
+```
