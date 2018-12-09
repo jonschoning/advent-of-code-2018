@@ -10,7 +10,7 @@ import Data.ByteString (ByteString)
 
 import Data.List
 import Data.Either
-import Debug.Trace
+import Data.Function
 
 import Prelude
 
@@ -20,22 +20,25 @@ import Prelude
 -- What is the sum of all metadata entries?
 p1 :: ByteString -> Int
 p1 (parseLiscence -> license) =
-  let sumMeta (N _ cs ms) = sum (fmap sumMeta cs) + sum ms
+  let sumMeta (N _ _ cs ms) = sum (fmap sumMeta cs) + sum ms
   in sumMeta license
 
 -- * Part Two
 
 -- | p2
 p2 :: ByteString -> Int
-p2 _ = 0
-
-data Header =
-  H Int -- * quantity of child nodes
-    Int -- * quantity of metadata entries
-  deriving (Show)
+p2 (parseLiscence -> license) = sumNode license
+  where
+    sumNode (N 0 _ _ ms) = sum ms
+    sumNode (N _ _ cs ms) =
+      sum [ sumNode (cs !! (m - 1))
+          | m <- ms
+          , m > 0 && m <= length cs
+          ]
 
 data Node =
-  N Header -- * header
+  N Int -- * quantity of child nodes
+    Int -- * quantity of metadata entries
     [Node] -- * child nodes
     [Int] -- * metadata entries
   deriving (Show)
@@ -43,11 +46,10 @@ data Node =
 parseLiscence :: ByteString -> Node
 parseLiscence = fromRight (error "e") . parseOnly parseNode . head . B8.lines
   where
-    int = P.decimal :: P.Parser Int
     parseNode = do
-      numChild <- int
+      numChild <- decimal
       space
-      numMeta <- int
+      numMeta <- decimal
       children <- count numChild (space *> parseNode)
-      meta <- count numMeta (space *> int)
-      pure (N (H numChild numMeta) children meta)
+      meta <- count numMeta (space *> decimal)
+      pure (N numChild numMeta children meta)

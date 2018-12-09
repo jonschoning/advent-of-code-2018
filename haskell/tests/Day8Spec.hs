@@ -23,9 +23,9 @@ spec = do
     describe "Part2" $ do
       it "sample" $ do
         D8.p2 sampleInput `shouldBe` 66
-      -- it "input: file[input/day8.txt]" $ do
-      --   input <- B8.readFile "input/day8.txt"
-      --   D8.p2 input `shouldBe` 0
+      it "input: file[input/day8.txt]" $ do
+        input <- B8.readFile "input/day8.txt"
+        D8.p2 input `shouldBe` 21399
 
 sampleInput :: B8.ByteString
 sampleInput = "2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2\n"
