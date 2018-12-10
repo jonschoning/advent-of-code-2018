@@ -71,6 +71,7 @@ library:
 #  - Day7
   - Day8
   - Day9
+  - Day10
   dependencies:
   - time >=1.5
   - vector >=0.10.9
