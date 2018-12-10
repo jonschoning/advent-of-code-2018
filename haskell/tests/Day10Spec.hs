@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -fno-warn-type-defaults #-}
 module Day10Spec where
 
 import Test.Hspec
@@ -5,25 +6,54 @@ import qualified Data.ByteString.Char8 as B8
 
 import qualified Day10 as D10
 
+import Data.List
 import Prelude
 
 main :: IO ()
 main = hspec spec
+
+assertTrue :: Expectation
+assertTrue = 0 `shouldBe` 0
 
 spec :: Spec
 spec = do
 
     describe "Part1" $ do
       it "sample" $ do
-        D10.p1 sampleInput `shouldBe` ""
-      -- it "input: file[input/day10.txt]" $ do
-      --   input <- B8.readFile "input/day10.txt"
-      --   D10.p1 input `shouldBe` 0
+        let img = D10.p1 sampleInput
+        B8.putStr img
+        img `shouldBe` B8.unlines
+          [ "#...#..###"
+          , "#...#...#."
+          , "#...#...#."
+          , "#####...#."
+          , "#...#...#."
+          , "#...#...#."
+          , "#...#...#."
+          , "#...#..##."
+          ]
+     
+      it "input: file[input/day10.txt]" $ do
+        input <- B8.readFile "input/day10.txt"
+        let img = D10.p1 input
+        B8.putStr img
+        img `shouldBe` B8.unlines
+          [ "######..#####.....##....#####...#....#..#....#.....###...####." 
+          , ".....#..#....#...#..#...#....#..#....#..#....#......#...#....#"
+          , ".....#..#....#..#....#..#....#...#..#....#..#.......#...#....."
+          , "....#...#....#..#....#..#....#...#..#....#..#.......#...#....."
+          , "...#....#####...#....#..#####.....##......##........#...#....."
+          , "..#.....#..#....######..#....#....##......##........#...#....."
+          , ".#......#...#...#....#..#....#...#..#....#..#.......#...#....."
+          , "#.......#...#...#....#..#....#...#..#....#..#...#...#...#....."
+          , "#.......#....#..#....#..#....#..#....#..#....#..#...#...#....#"
+          , "######..#....#..#....#..#####...#....#..#....#...###.....####."
+          ]
 
-    -- describe "Part2" $ do
-    --   it "input: file[input/day10.txt]" $ do
-    --     input <- B8.readFile "input/day10.txt"
-    --     D10.p2 input `shouldBe` 0
+    describe "Part2" $ do
+      it "input: file[input/day10.txt]" $ do
+        input <- B8.readFile "input/day10.txt"
+        D10.p2 input `shouldBe` 10710
 
 sampleInput :: B8.ByteString
 sampleInput = B8.unlines

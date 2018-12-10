@@ -59,7 +59,7 @@ main = do
       Args _ 8 2 _ -> S . D8.p2
       Args _ 9 1 _ -> S . D9.p1
       Args _ 9 2 _ -> S . D9.p2
-      Args _ 10 1 _ -> S . D10.p1
+      Args _ 10 1 _ -> S . D10.printIO . D10.p1
       Args _ 10 2 _ -> S . D10.p2
       _ -> error "invalid day or part"
 
