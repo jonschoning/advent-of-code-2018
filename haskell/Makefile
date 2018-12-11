@@ -7,7 +7,7 @@ aoc=.stack-work/install/x86_64-linux-tinfo6/lts-12.18/8.4.4/bin/AOC2018
 aoc_m=$(aoc) $(m)
 stack = stack
 
-ghcflags = --ghc-options -O2
+ghcflags = --ghc-options -O2 --ghc-options -threaded
 targs = --test-arguments=--match
 rtsopts = 
 ifeq (p, $(m))
@@ -127,3 +127,12 @@ day10p1: $(aoc)
 	$(aoc_m) 10 1 input/day10.txt $(rtsopts)
 day10p2: $(aoc)
 	$(aoc_m) 10 2 input/day10.txt $(rtsopts)
+
+day11test:
+	$(stack) test $(targs)=Day11 --fast
+day11test-doc:
+	$(stack) exec -- $(doctest) src/Day11.hs
+day11p1: $(aoc)
+	$(aoc_m) 11 1 input/day11.txt $(rtsopts)
+day11p2: $(aoc)
+	$(aoc_m) 11 2 input/day11.txt $(rtsopts)

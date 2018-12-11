@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: eda86f0b981447afd1a22c17cf860524ec0f3f97959f93aaccd9314f2c064cec
+-- hash: 588aa6a640fcbe1e4f9a83b418f28f9bcfe78957acf9b913d841294c3d68fef0
 
 name:           AOC2018
 version:        0.0.0.1
@@ -32,12 +32,13 @@ library
       Day8
       Day9
       Day10
+      Day11
   other-modules:
       Paths_AOC2018
   hs-source-dirs:
       src
   default-extensions: BangPatterns CPP ConstraintKinds DeriveDataTypeable DeriveGeneric EmptyDataDecls ExistentialQuantification FlexibleContexts FlexibleInstances GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MagicHash MultiParamTypeClasses MultiWayIf NoImplicitPrelude OverloadedStrings PartialTypeSignatures QuasiQuotes RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TemplateHaskell TupleSections TypeFamilies TypeOperators ViewPatterns
-  ghc-options: -Wall -O2 -fno-warn-unused-binds -fno-warn-unused-imports
+  ghc-options: -Wall -O2 -threaded -fno-warn-unused-binds -fno-warn-unused-imports
   build-depends:
       attoparsec
     , base >=4.7
@@ -46,6 +47,7 @@ library
     , either
     , lens
     , mtl >=2.2.1
+    , parallel
     , pointedlist
     , random >=1.1
     , split
@@ -62,7 +64,7 @@ executable AOC2018
   other-modules:
       Paths_AOC2018
   default-extensions: BangPatterns CPP ConstraintKinds DeriveDataTypeable DeriveGeneric EmptyDataDecls ExistentialQuantification FlexibleContexts FlexibleInstances GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MagicHash MultiParamTypeClasses MultiWayIf NoImplicitPrelude OverloadedStrings PartialTypeSignatures QuasiQuotes RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TemplateHaskell TupleSections TypeFamilies TypeOperators ViewPatterns
-  ghc-options: -Wall -O2
+  ghc-options: -Wall -O2 -threaded
   build-depends:
       AOC2018
     , attoparsec
@@ -75,6 +77,7 @@ executable AOC2018
     , lens
     , mtl >=2.2.1
     , optparse-applicative
+    , parallel
     , pointedlist
     , text >=0.11
     , transformers >=0.4.0.0
@@ -88,6 +91,7 @@ test-suite spec
   main-is: Spec.hs
   other-modules:
       Day10Spec
+      Day11Spec
       Day1Spec
       Day2Spec
       Day3Spec
@@ -100,7 +104,7 @@ test-suite spec
   hs-source-dirs:
       tests
   default-extensions: BangPatterns CPP ConstraintKinds DeriveDataTypeable DeriveGeneric EmptyDataDecls ExistentialQuantification FlexibleContexts FlexibleInstances GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MagicHash MultiParamTypeClasses MultiWayIf NoImplicitPrelude OverloadedStrings PartialTypeSignatures QuasiQuotes RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TemplateHaskell TupleSections TypeFamilies TypeOperators ViewPatterns
-  ghc-options: -Wall -O2 -fno-warn-orphans -fno-warn-unused-binds -fno-warn-unused-imports
+  ghc-options: -Wall -O2 -threaded -fno-warn-orphans -fno-warn-unused-binds -fno-warn-unused-imports
   build-depends:
       AOC2018
     , HUnit >1.5.0
@@ -112,6 +116,7 @@ test-suite spec
     , hspec >=1.8
     , lens
     , mtl >=2.2.1
+    , parallel
     , pointedlist
     , text >=0.11
     , transformers >=0.4.0.0

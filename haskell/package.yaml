@@ -11,7 +11,7 @@ license: MIT
 homepage: https://github.com/jonschoning/advent-of-code-2018
 git: git://github.com/jonschoning/advent-of-code-2018.git
 bug-reports: https://github.com/jonschoning/advent-of-code-2018/issues
-ghc-options: -Wall -O2
+ghc-options: -Wall -O2 -threaded
 dependencies:
 - base >=4.7
 - bytestring >=0.10.0
@@ -25,6 +25,7 @@ dependencies:
 - either
 - attoparsec
 - pointedlist
+- parallel
 default-extensions:
 - BangPatterns
 - CPP
@@ -72,6 +73,7 @@ library:
   - Day8
   - Day9
   - Day10
+  - Day11
   dependencies:
   - time >=1.5
   - vector >=0.10.9
