@@ -27,6 +27,11 @@ clean:
 testall: 
 	$(stack) test --fast
 
+getinput:
+	curl 'https://adventofcode.com/2018/day/$(day)/input' \
+        -H 'cookie: session=$(session)' \
+        --compressed > input/day$(day).txt
+
 $(aoc): app/Main.hs
 	$(stack) build $(ghcflags)
 
@@ -136,3 +141,13 @@ day11p1: $(aoc)
 	$(aoc_m) 11 1 input/day11.txt $(rtsopts)
 day11p2: $(aoc)
 	$(aoc_m) 11 2 input/day11.txt $(rtsopts)
+
+
+day14test:
+	$(stack) test $(targs)=Day14 --fast
+day14test-doc:
+	$(stack) exec -- $(doctest) src/Day14.hs
+day14p1: $(aoc)
+	$(aoc_m) 14 1 input/day14.txt $(rtsopts)
+day14p2: $(aoc)
+	$(aoc_m) 14 2 input/day14.txt $(rtsopts)
