@@ -28,13 +28,17 @@ spec = do
         D14.p1 "18" `shouldBe` "9251071085"
       it "input: 2018" $ do
         D14.p1 "2018" `shouldBe` "5941429882"
-      -- it "input: file[input/day14.txt]" $ do
-      --   input <- B8.readFile "input/day14.txt"
-      --   D14.p1 input `shouldBe` 0
+      it "input: file[input/day14.txt]" $ do
+        input <- B8.readFile "input/day14.txt"
+        D14.p1 input `shouldBe` "1413131339"
 
-    -- describe "Part2" $ do
-      -- it "sample1" $ do
-      --   D14.p2 "18\n" `shouldBe` (90,269,16)
+    describe "Part2" $ do
+      it "input: 51589" $ do
+        D14.p2 "51589" `shouldBe` 9
+      it "input: 92510" $ do
+        D14.p2 "92510" `shouldBe` 18
+      it "input: 59414" $ do
+        D14.p2 "59414" `shouldBe` 2018
       -- it "input: file[input/day14.txt]" $ do
       --   input <- B8.readFile "input/day14.txt"
-      --   D14.p2 input `shouldBe` (229,61,16)
+      --   D14.p2 input `shouldBe` 20254833
