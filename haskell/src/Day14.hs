@@ -1,4 +1,3 @@
-{-# LANGUAGE StrictData #-}
 {-# OPTIONS_GHC -fno-warn-incomplete-patterns #-}
 
 module Day14 where
@@ -7,76 +6,72 @@ import qualified Data.ByteString.Char8 as B8
 import Data.ByteString (ByteString)
 import Data.Maybe (fromJust)
 import Control.Applicative (liftA2)
-import Data.List (findIndex)
+import Data.List
+import Control.Monad
+import Data.Foldable
+import Debug.Trace
+import qualified Data.Vector as V
+import qualified Data.Vector.Mutable as MV
 
-import qualified Data.Vector.Unboxed as V
-import qualified Data.Vector.Unboxed.Mutable as MV
-
-import Control.Monad.ST (runST, ST)
+-- Lazy solution is slower than strict one, but is generative
+import Control.Monad.ST.Lazy
 
 import Prelude
 
 -- * Part One
-  
+
 data Choc s =
   Choc Int -- ^ elf1 pos
        Int -- ^ elf2 pos
        Int -- ^ scores length
        (MV.STVector s Int) -- ^ scores
-  
-getScores :: Choc s -> MV.STVector s Int
-getScores (Choc _ _ _ scores) = scores
-
-getSize :: Choc s -> Int
-getSize (Choc _ _ size _) = size
 
 -- | p1
 p1 :: ByteString -> String
 p1 (B8.readInt -> Just (initialSize, _)) =
-  let finalScoreSize = 10
-      recipies = createRecipies (initialSize + finalScoreSize)
-  in concatMap show (V.toList (V.slice initialSize finalScoreSize recipies))
-
-
-createRecipies :: Int -> V.Vector Int
-createRecipies end_size =
   runST $ do
-    scores <- MV.unsafeNew (end_size + 1)
-    MV.unsafeWrite scores 0 3
-    MV.unsafeWrite scores 1 7
-    choc' <- step (Choc 0 1 2 scores)
-    V.unsafeFreeze (getScores choc')
+    let finalScoreSize = 10
+    recipies <- createRecipies 1000
+    let r = concatMap show (take finalScoreSize (drop initialSize recipies))
+    pure r
+
+createRecipies :: Int -> ST s [Int]
+createRecipies end_size = do
+    scores <- strictToLazyST $ do
+      scores <- MV.unsafeNew (end_size + 1)
+      MV.unsafeWrite scores 0 3
+      MV.unsafeWrite scores 1 7
+      pure scores
+    ([3,7] ++) <$> (step (Choc 0 1 2 scores))
   where
-    step :: Choc s -> ST s (Choc s)
-    step choc@(getSize -> size)
-      | size >= end_size = pure choc
+    step :: (Choc s) -> ST s [Int]
     step (Choc e1 e2 size scores) = do
-      (rs1, rs2) <- liftA2 (,) (MV.unsafeRead scores e1) (MV.unsafeRead scores e2)
+      scores' <- strictToLazyST $ if (size + 2 >= MV.length scores) then (MV.unsafeGrow scores 1000000) else pure scores
+      (rs1, rs2) <- strictToLazyST $ liftA2 (,) (MV.unsafeRead scores' e1) (MV.unsafeRead scores' e2)
       let rss = rs1 + rs2
-      size' <-
+      news <-
         if rss >= 10
           then do
-            MV.unsafeWrite scores size 1
-            MV.unsafeWrite scores (size + 1) (rss - 10)
-            pure (size + 2)
+            strictToLazyST $ do
+              MV.unsafeWrite scores' size 1
+              MV.unsafeWrite scores' (size + 1) (rss - 10)
+              pure [1, rss - 10]
           else do
-            MV.unsafeWrite scores size rss
-            pure (size + 1)
+            strictToLazyST $ do
+             MV.unsafeWrite scores' size rss
+             pure [rss]
+      let size'= size + length news
       let e1' = (e1 + rs1 + 1) `mod` size'
           e2' = (e2 + rs2 + 1) `mod` size'
-      step (Choc e1' e2' size' scores)
+      (news ++) <$> (step (Choc e1' e2' size' scores'))
 
 -- | p2
 p2 :: ByteString -> Int
 p2 (B8.readInt -> Just (initialSize, _)) =
-  let finalScoreSize = 10
-      recipies = createRecipies (initialSize + finalScoreSize) -- + 100000000)
-      r_search = V.fromList (fmap (read . pure) (show initialSize))
-      r_len = V.length r_search
-      find_r_search r = V.unsafeSlice 0 r_len r == r_search
-  in fromJust (findIndex find_r_search (vtails recipies))
-  where
-    vtails v
-      | V.length v == 0 = []
-    vtails v = v : vtails (V.tail v)
+  runST $ do
+    recipies <- createRecipies 1000
+    let r_search = (fmap (read . pure) (show initialSize)) :: [Int]
+        r_len = length r_search
+        find_r_search r = take r_len r == r_search
+    pure $ fromJust (findIndex find_r_search (tails recipies))
 
